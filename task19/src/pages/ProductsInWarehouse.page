@@ -1,0 +1,87 @@
+<!--
+ - Created by sakrutnaya on 12/17/2019.
+ -->
+
+<apex:page id="ProductsInWarehouse" standardController="Product_Table__c" recordSetVar="products"
+           lightningStylesheets="true">
+    <html xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" lang="en">
+    <head>
+        <meta charset="utf-8"/>
+        <meta http-equiv="x-ua-compatible" content="ie=edge"/>
+        <title></title>
+        <meta name="viewport" content="width=device-width, initial-scale=1"/>
+        <apex:slds/>
+    </head>
+    <body>
+    <apex:form>
+        <div class="slds-wrap">
+            <apex:pageBlock rendered="{!$ObjectType.Product_Table__c.accessible}">
+                <apex:pageBlockTable value="{!products}" var="pr" columnsWidth="10%,15%,35%,10%,30%">
+                    <apex:column headerValue="{!$Label.Image}">
+                        <apex:image value="{!pr.Image_Url__c}"/>
+                    </apex:column>
+                    <apex:column headerValue="{!$ObjectType.Product_Table__c.Fields.Name.Label}">
+                        <apex:commandLink target="_blank" value="{! pr.Name }"
+                                          action="{!URLFOR($Page.MoreDetailPage,null,[Id=pr.Id])}"/>
+                    </apex:column>
+                    <apex:column
+                            headerValue="{!$ObjectType.Product_Table__c.Fields.Product_Description__c.Label}">
+                        <span>{!LEFT(pr.Product_Description__c,100)}
+                            <a href="javascript:void(0)" onclick="parentNode.style.display='none';
+                            parentNode.nextElementSibling.style.display='block'">...More</a></span>
+                        <span style="display: none">{!pr.Product_Description__c}
+                            <a href="javascript:void(0)" onclick="parentNode.style.display='none';
+                            parentNode.previousElementSibling.style.display='block'">Less </a></span>
+                    </apex:column>
+                    <apex:column value="{!pr.Unit_Price__c}"
+                                 headerValue="{!$ObjectType.Product_Table__c.Fields.Unit_Price__c.Label}"/>
+                    <apex:column>
+                        <apex:commandButton value="{!$Label.Buy}" action="{!URLFOR($Page.Buy,null,[Id=pr.Id])}"
+                                            styleClass="slds-button_outline-brand" id="buy" reRender="buy"/>
+                    </apex:column>
+                </apex:pageBlockTable>
+                <table style="width: 100%">
+                    <tr>
+                        <td>
+                            Page:
+                            <apex:outputText value=" {!PageNumber} of {! CEILING(ResultSize / PageSize) }"
+                                             id="pagination"/>
+                        </td>
+                        <td align="center">
+                            <apex:commandLink action="{! First }" value="«« First"
+                                              rendered="{! HasPrevious }"/>
+                            <apex:outputText style="color: #ccc;" value="«« First"
+                                             rendered="{! NOT(HasPrevious) }"/>
+                            &nbsp;&nbsp;
+                            <apex:commandLink action="{! Previous }" value="« Previous"
+                                              rendered="{! HasPrevious }"/>
+                            <apex:outputText style="color: #ccc;" value="« Previous"
+                                             rendered="{! NOT(HasPrevious) }"/>
+                            &nbsp;&nbsp;
+                            <apex:commandLink action="{! Next }" value="Next »"
+                                              rendered="{! HasNext }"/>
+                            <apex:outputText style="color: #ccc;" value="Next »"
+                                             rendered="{! NOT(HasNext) }"/>
+                            &nbsp;&nbsp;
+                            <apex:commandLink action="{! Last }" value="Last »»"
+                                              rendered="{! HasNext }"/>
+                            <apex:outputText style="color: #ccc;" value="Last »»"
+                                             rendered="{! NOT(HasNext) }"/>
+                        </td>
+                        <td>Records per page:&nbsp;&nbsp;<apex:inputText value="{!PageSize}"/>
+                        </td>
+                    </tr>
+                </table>
+            </apex:pageBlock>
+        </div>
+
+        <apex:pageBlock rendered="{! NOT($ObjectType.Product_Table__c.accessible) }">
+            <p>{!$Label.ObjUnacceessible}</p>
+        </apex:pageBlock>
+
+    </apex:form>
+    </body>
+    </html>
+
+
+</apex:page>

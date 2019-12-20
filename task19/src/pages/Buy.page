@@ -1,0 +1,74 @@
+<!--
+ - Created by sakrutnaya on 12/18/2019.
+ -->
+
+<apex:page id="Buy" standardController="Product_Table__c" lightningStylesheets="true" extensions="BuyController"
+           docType="html-5.0">
+    <apex:pageMessages id="mess"/>
+    <html xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" lang="en">
+    <head>
+        <meta charset="utf-8"/>
+        <meta http-equiv="x-ua-compatible" content="ie=edge"/>
+        <title></title>
+        <meta name="viewport" content="width=device-width, initial-scale=1"/>
+        <apex:slds/>
+    </head>
+    <body>
+
+    <apex:form>
+        <div class="slds-wrap">
+            <article class="slds-card">
+                <div class="slds-card__header slds-color__background_gray-7">
+                    <header class="slds-text-heading_large  slds-text-align_center slds-text-color_inverse">
+                        <div class="slds-grid slds-gutters">
+                            <div class="slds-col slds-size_1-of-2">
+                                {!$Label.ContactInformation}
+                            </div>
+                            <div class="slds-col slds-size_1-of-2">
+                                {!$Label.ProductInformation}
+                            </div>
+                        </div>
+                    </header>
+                </div>
+                <div class="slds-grid slds-gutters">
+                    <div class="slds-col slds-size_1-of-2 slds-text-align_center slds-text-heading--medium slds-p-bottom--medium">
+                        <span><br/>{!$ObjectType.Contact.Fields.FirstName.Label}:&nbsp;&nbsp;
+                            <apex:inputText value="{!FirstName}"/> </span><br/><br/>
+                        <span>{!$ObjectType.Contact.Fields.LastName.Label}:&nbsp;&nbsp;
+                            <apex:inputText value="{!LastName}" required="true"/> </span><br/><br/>
+                        <span>{!$ObjectType.Contact.Fields.Email.Label}:&nbsp;&nbsp;
+                            <apex:input type="email" value="{!Email}" required="true"/> </span><br/><br/>
+                    </div>
+                    <div class="slds-col slds-size_1-of-2 slds-text-heading--medium ">
+                        <apex:actionRegion>
+                        <span>{!$ObjectType.Product_Table__c.Fields.Name.Label}:
+                            <br/>{!Product_Table__c.Name}</span><br/><br/>
+                            <span>{!$ObjectType.Product_Table__c.Fields.Unit_Price__c.Label}:<br/></span>
+                            <apex:outputField value="{!Product_Table__c.Unit_Price__c}"/>
+                            <br/><br/>
+                            <span>{!$Label.UnitCount}:
+                            <br/><apex:input type="number" value="{!unitCount}">
+                                <apex:actionSupport reRender="total" event="onchange" action="{!calculateTotal}"/>
+                            </apex:input>
+                                </span><br/><br/>
+                            <span>{!$Label.TotalAmount}:<br/></span>
+                            <apex:outputLabel value="{!totalVal}" id="total"/>
+                            <br/><br/>
+                        </apex:actionRegion>
+                    </div>
+                </div>
+                <footer class="slds-card__footer slds-color__background_gray-7">
+                    <div class="slds-button-group" role="group">
+                        <apex:commandButton value="Back" styleClass="slds-button slds-button_neutral"
+                                            action="{!back}" id="shopping" immediate="true"
+                                            html-formnovalidate="formnovalidate"/>
+                        <apex:commandButton value="Buy" styleClass="slds-button slds-button_brand"
+                                            action="{!order}" id="buy"/>
+                    </div>
+                </footer>
+            </article>
+        </div>
+    </apex:form>
+    </body>
+    </html>
+</apex:page>
