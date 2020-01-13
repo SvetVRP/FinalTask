@@ -1,0 +1,24 @@
+<!--
+ - Created by sakrutnaya on 1/6/2020.
+ -->
+
+<aura:component description="search">
+    <aura:attribute name="options" type="List"/>
+    <aura:attribute name="filteredOptions" type="List"/>
+    <aura:attribute name="performSearch" access="private" type="Boolean" default="false"/>
+    <aura:handler name="performSearch" event="c:searchValue" action="{!c.optionSelected}"/>
+    <aura:handler event="c:hideOptionsEvent" action="{!c.handleBlur}"/>
+    <div onmouseover="{!c.handleBlur}"><br/></div>
+    <lightning:input
+            aura:id="enter-search" name="enter-search" label="Search adverts by tags" type="search"
+            onclick="{!c.showOptions}" onchange="{!c.getFilteredOptions}" class="slds-input-has-icon--left"/>
+    <aura:if isTrue="{!v.performSearch}" aura:id="foc">
+        <ul
+                class="slds-listbox slds-listbox_vertical slds-dropdown slds-dropdown_fluid slds-dropdown--length-5"
+                role="listbox">
+            <aura:iteration var="option" items="{!v.filteredOptions}">
+                <c:searchSelectItem item="{!option}"/>
+            </aura:iteration>
+        </ul>
+    </aura:if>
+</aura:component>

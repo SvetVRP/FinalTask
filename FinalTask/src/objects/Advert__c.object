@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fields>
+        <fullName>Description__c</fullName>
+        <externalId>false</externalId>
+        <label>Description</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>TextArea</type>
+    </fields>
+    <fields>
+        <fullName>PublishDate__c</fullName>
+        <defaultValue>TODAY()</defaultValue>
+        <externalId>false</externalId>
+        <label>PublishDate</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <validationRules>
+        <fullName>DuplicateName</fullName>
+        <active>false</active>
+        <description>Duplicate names are not allowed</description>
+        <errorConditionFormula>AND(UPPER(Name)=  UPPER(VLOOKUP( $ObjectType.Advert__c.Fields.Name , $ObjectType.Advert__c.Fields.Name, Name)), VLOOKUP( $ObjectType.Advert__c.Fields.Id , $ObjectType.Advert__c.Fields.Name, Name)  &lt;&gt; Id)</errorConditionFormula>
+        <errorDisplayField>Name</errorDisplayField>
+        <errorMessage>Duplicate names are not allowed, name of advert has to be unique.</errorMessage>
+    </validationRules>
+</CustomObject>

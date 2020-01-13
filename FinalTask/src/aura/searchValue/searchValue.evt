@@ -1,0 +1,7 @@
+<!--
+ - Created by sakrutnaya on 1/6/2020.
+ -->
+
+<aura:event type="COMPONENT" description="searchValue">
+    <aura:attribute name="searchValue" type="String"/>
+</aura:event>

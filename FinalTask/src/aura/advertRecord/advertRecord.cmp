@@ -1,0 +1,41 @@
+<!--
+ - Created by sakrutnaya on 12/31/2019.
+ -->
+
+<aura:component description="advertRecord" implements="flexipage:availableForAllPageTypes,force:hasRecordId">
+    <aura:attribute name="showElevateButton" type="Boolean" access="private"/>
+    <aura:registerEvent name="hideEvent" type="c:hideOptionsEvent"/>
+    <lightning:recordEditForm objectApiName="Advert__c" recordId="{!v.recordId}" aura:id="form"
+                              onload="{!c.handleOnLoad}" onsubmit="{! c.handleSubmit }" onsuccess="{!c.handleOnSuccess}"
+                              onerror="{!c.handleOnError}">
+        <div class="slds-box" onclick="{!c.handleClick}">
+            <div class="slds-grid">
+                <div class="slds-col slds-size_1-of-5">
+                    <ul class="slds-list_horizontal">
+                        <li>
+                            <lightning:icon iconName="custom:custom28" class="slds-p-top_small"/>
+                        </li>
+                        <li>
+                            <lightning:outputField fieldName="Name"/>
+                        </li>
+                    </ul>
+                </div>
+                <div class="slds-col slds-size_1-of-5">
+                    <lightning:outputField fieldName="Description__c"/>
+                </div>
+                <div class="slds-col slds-size_1-of-5">
+                    <lightning:outputField fieldName="PublishDate__c"/>
+                </div>
+                <div class="slds-col slds-size_1-of-5">
+                    <aura:if isTrue="{!v.showElevateButton}">
+                        <lightning:button label="Поднять" type="submit"/>
+                    </aura:if>
+                </div>
+                <div class="slds-col slds-size_1-of-5 slds-p-top_medium">
+                    <c:relatedTags recordId="{!v.recordId}"/>
+                </div>
+            </div>
+        </div>
+    </lightning:recordEditForm>
+
+</aura:component>
