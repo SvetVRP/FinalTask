@@ -14,5 +14,9 @@
     },
     handleBlur: function (component, event, helper) {
         helper.hideOptions(component);
-    }
+    },
+    hideList:function (component, event, helper) {
+        helper.hideOptions(component);
+        event.stopPropagation();
+    },
 })

@@ -35,6 +35,7 @@
     },
     handleFind: function (component, event) {
         let searchTerm = event.getParam("searchValue");
+        event.stopPropagation();
         this.getAdvertIds(component, searchTerm);
     }
 })

@@ -7,7 +7,7 @@
     <aura:attribute name="filteredOptions" type="List"/>
     <aura:attribute name="performSearch" access="private" type="Boolean" default="false"/>
     <aura:handler name="performSearch" event="c:searchValue" action="{!c.optionSelected}"/>
-    <aura:handler event="c:hideOptionsEvent" action="{!c.handleBlur}"/>
+    <aura:handler event="c:hideOptionsEvent" action="{!c.hideList}"/>
     <div onmouseover="{!c.handleBlur}"><br/></div>
     <lightning:input
             aura:id="enter-search" name="enter-search" label="Search adverts by tags" type="search"
